@@ -23,6 +23,7 @@ public class Home {
     this.electronicDeviceList = new ArrayList<ElectronicDevice>();
   }
 
+
   public void setId(Long id) {
     this.id = id;
   }
