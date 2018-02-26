@@ -3,6 +3,7 @@ package domaine;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.*;
 
 @Entity
@@ -15,6 +16,9 @@ public class Person {
   private String mail;
   private List<Person> freinds;
 
+  public Person(){
+
+  }
   public Person(String name, String firstName, String mail) {
     this.name = name;
     this.firstName = firstName;
@@ -40,9 +44,11 @@ public class Person {
     this.mail = mail;
   }
 
+
   public void setFreinds(List<Person> freinds) {
     this.freinds = freinds;
   }
+
 
   public String getName() {
     return name;
@@ -56,9 +62,12 @@ public class Person {
     return mail;
   }
 
+
+  @OneToMany
   public List<Person> getFreinds() {
     return freinds;
   }
+
 
   @Id
   @GeneratedValue

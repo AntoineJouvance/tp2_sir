@@ -1,5 +1,7 @@
 package jpa;
 
+import domaine.Person;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -20,9 +22,10 @@ public class JpaTest {
 		try {
 
 
-/*domaine.Person p = new domaine.Person();
+
+    Person p = new Person();
 			p.setName("martin");
-			manager.persist(p);*/
+			manager.persist(p);
 
 
 
