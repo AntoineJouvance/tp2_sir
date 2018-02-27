@@ -1,6 +1,6 @@
 package jpa;
 
-import domaine.Heater;
+import domaine.Person;
 import domaine.Person;
 
 import javax.persistence.EntityManager;
@@ -10,44 +10,89 @@ import javax.persistence.Persistence;
 
 public class JpaTest {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("dev");
-		EntityManager manager = factory.createEntityManager();
+  /**
+   * @param args
+   */
 
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		try {
+  private EntityManager manager;
 
+  public JpaTest(EntityManager manager){
+    this.manager = manager;
+  }
 
+  public static void main(String[] args) {
+    EntityManagerFactory factory = Persistence
+      .createEntityManagerFactory("dev");
+    EntityManager manager = factory.createEntityManager();
+    JpaTest test = new JpaTest(manager);
 
-    Person p = new Person();
-    Heater h1 = new Heater();
-
-			p.setName("martin");
-			manager.persist(p);
-
-
+    EntityTransaction tx = manager.getTransaction();
+    tx.begin();
+    try {
 
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		tx.commit();
-//		String s = "SELECT e FROM domaine.Person as e where e.name=:name";
+			/*Person p = new Person();
+			p.setLastName("martin");
+			manager.persist(p);*/
 
-//		Query q = manager.createQuery(s,domaine.Person.class);
+      test.createPerson("Jack");
+      //test.removePerson("Tifenn");
+      //test.createPerson("Gousset", "Tifenn", "tifenn.gousset@gmail.com");
+      //test.removePerson("Gousset", "Tifenn", "tifenn.gousset@gmail.com");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    tx.commit();
+//		String s = "SELECT e FROM Person as e where e.name=:name";
+
+//		Query q = manager.createQuery(s,Person.class);
 //		q.setParameter("name", "martin");
-//		List<domaine.Person> res = q.getResultList();
+//		List<Person> res = q.getResultList();
 
 //		System.err.println(res.size());
 //		System.err.println(res.get(0).getName());
 
-		manager.close();
-		factory.close();
-	}
+    manager.close();
+    factory.close();
+  }
+
+  public void createPerson(String name){
+    int numOfPerson = manager.createQuery("Select p From Person p", Person.class).getResultList().size();
+    //if(numOfPerson == 0){
+    manager.persist(new Person(name));
+    //}
+  }
+
+  public void createPerson(String lastName, String firstName, String mail){
+
+    manager.persist(new Person(lastName, firstName, mail));
+
+  }
+
+  public void removePerson(String name){
+    int numOfPerson = manager.createQuery("Select p From Person p", Person.class).getResultList().size();
+    if(numOfPerson > 0){
+      /*l0ong id = manager.createQuery("Select id from Person where LastName=" + name, Person.class).getFirstResult();
+       */
+      long id = manager.createQuery("Select p from Person p where LastName="+"'"+name+"'" , Person.class).getSingleResult().getId();
+      Person p = manager.find(Person.class, id);
+      manager.remove(p);
+    }
+  }
+
+  public void removePerson(String lastName, String firstName, String mail){
+    int numOfPerson = manager.createQuery("Select p From Person p", Person.class).getResultList().size();
+    if(numOfPerson > 0){
+      /*l0ong id = manager.createQuery("Select id from Person where LastName=" + name, Person.class).getFirstResult();
+       */
+      long id = manager.createQuery("Select p from Person p where LastName='"+lastName+"' and FirstName='" + firstName + "' and mail='"+mail +"'" , Person.class).getSingleResult().getId();
+      Person p = manager.find(Person.class, id);
+      manager.remove(p);
+    }
+  }
+
+
+
+
 
 }

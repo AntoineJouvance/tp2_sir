@@ -1,77 +1,118 @@
 package domaine;
 
+import domaine.Home;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Person {
 
-
   private Long id;
-  private String name;
   private String firstName;
+  private String lastName;
   private String mail;
-  private List<Person> freinds;
+  private List<Person> friends;
+  private List<Home> homeList;
 
-  public Person(){
-
-  }
-  public Person(String name, String firstName, String mail) {
-    this.name = name;
+  public Person(String lastName, String firstName, String mail){
     this.firstName = firstName;
+    this.lastName = lastName;
     this.mail = mail;
-    this.freinds = new ArrayList<Person>();
+    this.homeList = new ArrayList<Home>();
+    this.friends = new ArrayList<Person>();
   }
 
-
-
-  public void setId(Long id) {
-    this.id = id;
+  public Person(String lastName){
+    this.lastName = lastName;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public void setMail(String mail) {
-    this.mail = mail;
-  }
-
-
-  public void setFreinds(List<Person> freinds) {
-    this.freinds = freinds;
-  }
-
-
-  public String getName() {
-    return name;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getMail() {
-    return mail;
-  }
-
-
-  @OneToMany
-  public List<Person> getFreinds() {
-    return freinds;
-  }
-
+  public Person(){}
 
   @Id
   @GeneratedValue
   public Long getId() {
     return id;
   }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getMail() {
+    return mail;
+  }
+
+  public void setMail(String mail) {
+    this.mail = mail;
+  }
+
+  @OneToMany
+  public List<Person> getFriends() {
+    return friends;
+  }
+
+  public void setFriends(List<Person> friends) {
+    this.friends = friends;
+  }
+
+  public void addFriend(Person p){
+    friends.add(p);
+  }
+
+  public void removeFriend(int index){
+    friends.remove(index);
+  }
+
+  public void removeFriend(Person p){
+    friends.remove(p);
+  }
+
+  @Override
+  public String toString() {
+    return super.toString();
+  }
+
+  @OneToMany(mappedBy = "owner")
+  public List<Home> getHomeList() {
+    return homeList;
+  }
+
+  public void setHomeList(List<Home> homeList) {
+    this.homeList = homeList;
+  }
+
+  public void addHome(Home home){
+    this.homeList.add(home);
+  }
+
+  public void removeHome(int index){
+    this.homeList.remove(index);
+  }
+
+  public void removeHome(Home home){
+    this.homeList.remove(home);
+  }
+
+
 }
