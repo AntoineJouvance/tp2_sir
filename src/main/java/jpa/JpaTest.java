@@ -1,5 +1,6 @@
 package jpa;
 
+import domaine.Heater;
 import domaine.Person;
 
 import javax.persistence.EntityManager;
@@ -24,6 +25,8 @@ public class JpaTest {
 
 
     Person p = new Person();
+    Heater h1 = new Heater();
+
 			p.setName("martin");
 			manager.persist(p);
 

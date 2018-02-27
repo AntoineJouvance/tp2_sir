@@ -10,6 +10,11 @@ public class Heater {
   private double meanConso;
   private Home home;
 
+  public Heater(){
+
+  }
+
+
   public Heater(double meanConso) {
     this.meanConso = meanConso;
   }
