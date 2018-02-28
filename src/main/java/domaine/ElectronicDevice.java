@@ -1,46 +1,66 @@
 package domaine;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+ import javax.persistence.Entity;
+ import javax.persistence.GeneratedValue;
+ import javax.persistence.Id;
+ import javax.persistence.ManyToOne;
+
 
 
 @Entity
 public class ElectronicDevice {
 
-  private Long id;
-  private Double meanConso;
-  private Home home;
+    private int id;
+    private String name;
+    private Person owner;
+    private float cons;
 
-  public ElectronicDevice(Long id, Double meanConso, Home home) {
-    this.meanConso = meanConso;
-  }
+    public ElectronicDevice(){
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
 
-  public void setMeanConso(Double meanConso) {
-    this.meanConso = meanConso;
-  }
 
-  public void setHome(Home home) {
-    this.home = home;
-  }
+    public float getCons() {
+        return cons;
+    }
 
-  @Id
-  @GeneratedValue
-  public Long getId() {
-    return id;
-  }
 
-  public Double getMeanConso() {
-    return meanConso;
-  }
+    public void setCons(float cons) {
+        this.cons = cons;
+    }
 
-  @ManyToOne
-  public Home getHome() {
-    return home;
-  }
+
+
+    public ElectronicDevice(String name, float cons,Person owner) {
+        this.name = name;
+        this.owner = owner;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    @Id
+    @GeneratedValue
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @ManyToOne
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
 }

@@ -1,49 +1,48 @@
 package domaine;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
-@Entity
 public class Heater {
 
-  private int id;
-  private double meanConso;
-  private Home home;
-
-  public Heater(){
-
-  }
+    private int id;
+    private Home home;
+    private float cons;
 
 
-  public Heater(double meanConso) {
-    this.meanConso = meanConso;
-  }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setMeanConso(double meanConso) {
-    this.meanConso = meanConso;
-  }
-
-  public void setHome(Home home) {
-    this.home = home;
-  }
+    public Heater(){
+    }
 
 
-  @Id
-  @GeneratedValue
-  public int getId() {
-    return id;
-  }
 
-  public double getMeanConso() {
-    return meanConso;
-  }
+    public float getCons() {
+        return this.cons;
+    }
 
-  @ManyToOne
-  public Home getHome() {
-    return home;
-  }
+    public void setCons(float cons) {
+        this.cons = cons;
+    }
+
+
+    @Id
+    @GeneratedValue
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    @JsonIgnore
+    @ManyToOne
+    public Home getHome() {
+        return home;
+    }
+
+    public void setHome(Home home) {
+        this.home = home;
+    }
+
 }
